@@ -1,0 +1,54 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+int collected;
+struct node*left;
+struct node*right;
+};
+void preorder(struct node*branch)
+{
+if(branch==NULL)
+return;
+printf("%d->",branch->collected);
+preorder(branch->left);
+preorder(branch->right);
+}
+void inorder(struct node*branch)
+{
+if(branch==NULL)
+return;
+inorder(branch->left);
+printf("%d->",branch->collected);
+inorder(branch->right);
+}
+void postorder(struct node*branch)
+{
+if(branch==NULL)
+return;
+postorder(branch->left);
+postorder(branch->right);
+printf("%d->",branch->collected);
+}
+struct node*NEWNode(int value)
+{
+struct node*Anode=malloc(sizeof(struct node));
+Anode->collected=value;
+Anode->left=NULL;
+Anode->right=NULL;
+return Anode;
+}
+void main()
+{
+struct node*branch=NEWNode(50);
+branch->left=NEWNode(69);
+branch->right=NEWNode(14);
+branch->left->left=NEWNode(98);
+branch->left->right=NEWNode(28);
+printf("Preorder traversal");
+preorder(branch);
+printf("\nInorder traversal");
+inorder(branch);
+printf("\nPostorder traversal");
+postorder(branch);
+}
