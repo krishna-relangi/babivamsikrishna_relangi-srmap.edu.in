@@ -1,0 +1,45 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+int collected;
+struct node*left;
+struct node*right;
+};
+struct node*NEWNode(int item)
+{
+struct node*Anode=(struct node*)malloc(sizeof(struct node));
+Anode->collected=item;
+Anode->left=Anode->right=NULL;
+return Anode;
+}
+struct node*insert(struct node*node,int value)
+{
+if(node==NULL)
+return NEWNode(value);
+if(value<node->collected)
+node->left=insert(node->left,value);
+else if(value>node->collected)
+node->right=insert(node->right,value);
+return node;
+}
+void inorder(struct node*branch)
+{
+if(branch==NULL)
+return;
+inorder(branch->left);
+printf("%d->",branch->collected);
+inorder(branch->right);
+}
+void main()
+{
+struct node*branch=NULL;
+branch=insert(branch,13);
+insert(branch,68);
+insert(branch,7);
+insert(branch,40);
+insert(branch,77);
+insert(branch,13);
+printf("inorder traversal \n");
+inorder(branch);
+}
